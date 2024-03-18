@@ -1,0 +1,17 @@
+{
+	"name": "@EmNudge/svgbob-wasm",
+	"version": "1.0.0",
+	"description": "wasm port of svgbob",
+	"scripts": {
+		"build:rust": "cd rust && wasm-pack build",
+		"build:js": "rollup -c",
+		"build": "npm run build:rust && npm run build:js",
+		"test": "vitest"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@rollup/plugin-wasm": "^6.2.2",
+		"rollup": "^4.13.0",
+		"vitest": "^1.4.0"
+	}
+}
