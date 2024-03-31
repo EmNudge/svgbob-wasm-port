@@ -6,18 +6,13 @@ import {
 } from "./rust/pkg/svgbob_wasm_bg.js";
 import instantiate from "./rust/pkg/svgbob_wasm_bg.wasm";
 
-let hasLoaded = false;
+const wasm = instantiate({
+  "./svgbob_wasm_bg.js": {
+    __wbindgen_object_drop_ref,
+    __wbindgen_throw,
+  },
+});
+wasm.then(({ instance }) => __wbg_set_wasm(instance.exports));
 
-export const getRenderer = async () => {
-  if (hasLoaded) return render;
-
-  const wasm = await instantiate({
-    "./svgbob_wasm_bg.js": {
-      __wbindgen_object_drop_ref,
-      __wbindgen_throw,
-    },
-  });
-  __wbg_set_wasm(wasm.instance.exports);
-  
-  return render;
-};
+/** @returns {Promise<(ascii: string) => string>} */
+export const getRenderer = () => wasm.then(() => render);
